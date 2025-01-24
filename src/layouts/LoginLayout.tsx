@@ -28,7 +28,6 @@ const LoginLayout = () => {
   async function handleLogin(formData: any) {
     try {
       const { data } = await instance.post("/login", formData);
-      console.log(data);
       localStorage.setItem("user", JSON.stringify(data));
       nav("/");
       reset();

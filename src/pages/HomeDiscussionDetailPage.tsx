@@ -24,34 +24,34 @@ const HomeDiscussionDetailPage = () => {
       text: "",
     },
   });
-  // Hàm kiểm tra trạng thái scroll
   const [page, setPage] = useState(1);
-  const messagesContainerRef = useRef(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isNullData, setIsNullData] = useState(false);
-  const container = messagesContainerRef.current as any;
-  const handleScroll = () => {
+  const container: HTMLDivElement | null = messagesContainerRef.current;
+
+  const handleScroll = async () => {
+    if (container === null) return;
+    //get scroll bar position
     const currentScrollY = container.scrollTop;
     if (currentScrollY < lastScrollY && currentScrollY < 200 && !isNullData) {
-      container.style.overflow = "hidden";
-      (async () => {
-        const previousScrollHeight = container.scrollHeight;
-        const { data } = await instance.get(
-          `/messages/${discussionId}?limit=20&page=${page + 1}`
-        );
-        if (data.length !== 0) {
-          setMessages([...data, ...messages]);
-          setPage(page + 1);
-          const newScrollHeight = container.scrollHeight;
-          container.scrollTop =
-            currentScrollY + (newScrollHeight - previousScrollHeight);
-        } else {
-          setIsNullData(true);
-        }
-        container.style.overflow = "auto";
-      })();
+      // container.style.overflow = "hidden";
+      // const previousScrollHeight = container.scrollHeight;
+      // const { data } = await instance.get(
+      //   `/messages/${discussionId}?limit=20&page=${page + 1}`
+      // );
+      // if (data.length !== 0) {
+      //   setMessages([...data, ...messages]);
+      //   setPage(page + 1);
+      //   const newScrollHeight = container.scrollHeight;
+      //   container.scrollTop =
+      //     currentScrollY + (newScrollHeight - previousScrollHeight);
+      // } else {
+      //   setIsNullData(true);
+      // }
+      // container.style.overflow = "auto";
     }
-    setLastScrollY(currentScrollY);
+    // setLastScrollY(currentScrollY);
   };
 
   useEffect(() => {

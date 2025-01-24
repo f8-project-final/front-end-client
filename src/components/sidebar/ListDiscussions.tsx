@@ -29,8 +29,6 @@ export default function ListDiscussions() {
   function handleDelete(e: any, discussionId: string) {
     e.stopPropagation();
     if (confirm("Are you sure you want to delete this discussion?")) {
-      console.log(activeDiscussionId);
-      console.log(discussionId);
       if (activeDiscussionId === discussionId) {
         dispatch(updateActiveDiscussionId({ discussionId: undefined }));
         nav("/");
